@@ -27,7 +27,10 @@ message(STATUS "PROJECT : ${PROJECT_NAME} ${PROJECT_VERSION}")
 add_executable(${PROJECT_NAME} main.cpp main.hpp)
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_20)
 
-find_package(ImageMagick COMPONENTS Magick++)
+find_package(argparse CONFIG REQUIRED)
+target_link_libraries(${PROJECT_NAME} PUBLIC argparse::argparse)
+
+find_package(ImageMagick COMPONENTS Magick++ MagickCore MagickWand)
 target_compile_definitions(${PROJECT_NAME} PUBLIC MAGICKCORE_QUANTUM_DEPTH=16 MAGICKCORE_HDRI_ENABLE=0)
 target_include_directories(${PROJECT_NAME} PUBLIC ${ImageMagick_INCLUDE_DIRS})
 target_link_libraries(${PROJECT_NAME} PUBLIC ${ImageMagick_LIBRARIES})
